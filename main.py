@@ -23,13 +23,14 @@ if __name__ == '__main__':
     names_of_Job_Title = df['Job Title'].unique()
     print(list(names_of_Job_Title)) # ['Software Engineer' 'Data Analyst' 'Manager' 'Sales Associate' 'Director', 'Marketing Analyst' 'Product Manager' 'Sales Manager', 'Marketing Coordinator' 'Scientist' 'Software Developer' 'HR Manager', 'Financial Analyst' 'Project Manager' 'Customer Servic
     print('*')
+
     # Classification of  job title:
-    # Finance = Financial Manager , Financial Analyst
-    # Hi - tech = Engineer , Software Engineer, Software Developer , Data Scientist , Research Scientist , Research director, Principal Scientist, Scientist , Data Analyst , Data Scientist, Full Stack Engineer , Front and Developer, Bank end Developer , director of data Science , Web Developer
-    # Marketing = Director of marketing , Marketing Analyst , Marketing Manager, digital Marketing Manager , Content MArketing Manager
-    # HR = Human Resources Manager , HR Generalist, HR CoorinatorHR Generalist, HR Coordinator , Receptionist
-    # Sales = Sales Associate , Sales Director, Sales Representative, Sales Manager, Customer Service Representative , Sales Executive , Account Manager, Customer Success Rep
-    # Operation = Director of Operation, Project Manager , Project Engineer, Operations Manager, Operations Director
+    # Finance = Financial Manager , Financial Analyst , Accountant
+    # Hi - tech = Engineer , Software Engineer, Software Developer , Data Scientist , Research Scientist , Research director, Principal Scientist, Scientist , Data Analyst , Data Scientist, Full Stack Engineer , Front and Developer, Bank end Developer , director of data Science , Web Developer , IT Support, UX Designer, Network Enineer, help desk analyst, Graphic Designer, Web Developer, Chief Technology Officer, Chief  Data Officer, IT Support SpecialistPrecipal Engineer, Director of Product Managemnet
+    # Marketing = Director of marketing , Marketing Analyst , Marketing Manager, digital Marketing Manager , Content Marketing Manager, Social Media Specialist, Product Designer , Marketing Coordinator, Creative Director, Business Analyst, Public Relations Manager
+    # HR = Human Resources Manager , HR Generalist, HR Coordinator , Receptionist , Director , HR Manager, data entry clerk , Recruiter, Administrative Assistant, Office Manager, Training Specialist, Director of Human Resources, Human Resources Manager , Direcotor of Human Capital
+    # Sales = Sales Associate , Sales Director, Sales Representative, Sales Manager, Customer Service Representative , Sales Executive , Account Manager, Customer Success Rep, Customer Service Rep,
+    # Operation = Director of Operation, Project Manager , Project Engineer, Operations Manager, Operations Director , VP of Operations , Sales Operation Manager, Supply Chain Manager, Operations Analyst, Project Coodunator , Supply Chain Analyst ,
     #
     # data = {'job_title': ['Financial Manager', 'Engineer', 'Software Engineer', 'Human Resources Manager',
     #                       'Sales Associate', 'Director of marketing', 'Financial Analyst', 'Data Scientist',
@@ -37,11 +38,11 @@ if __name__ == '__main__':
     #                       'Marketing Manager', 'Full Stack Engineer']}
     # df = pd.DataFrame(data)
 
-
     # Define mapping of job titles to categories
     job_category_mapping = {
         'Financial Manager': 'Finance',
         'Financial Analyst': 'Finance',
+        'Accountant': 'Finance',
         'Engineer': 'Hi-tech',
         'Software Engineer': 'Hi-tech',
         'Software Developer': 'Hi-tech',
@@ -56,32 +57,61 @@ if __name__ == '__main__':
         'Bank end Developer': 'Hi-tech',
         'director of data Science': 'Hi-tech',
         'Web Developer': 'Hi-tech',
+        'IT Support': 'Hi-tech',
+        'UX Designer': 'Hi-tech',
+        'Network Engineer': 'Hi-tech',
+        'Help Desk Analyst': 'Hi-tech',
+        'Graphic Designer': 'Hi-tech',
+        'Chief Technology Officer': 'Hi-tech',
+        'Chief Data Officer': 'Hi-tech',
+        'IT Support Specialist': 'Hi-tech',
+        'Principal Engineer': 'Hi-tech',
+        'Director of Product Management': 'Hi-tech',
         'Director of marketing': 'Marketing',
         'Marketing Analyst': 'Marketing',
         'Marketing Manager': 'Marketing',
-        'Social Media Man': 'Marketing',
-        'digital Marketing Manager': 'Marketing',
+        'Digital Marketing Manager': 'Marketing',
         'Content Marketing Manager': 'Marketing',
+        'Social Media Specialist': 'Marketing',
+        'Product Designer': 'Marketing',
+        'Marketing Coordinator': 'Marketing',
+        'Creative Director': 'Marketing',
+        'Business Analyst': 'Marketing',
+        'Public Relations Manager': 'Marketing',
         'Human Resources Manager': 'HR',
-        'Juniour HR Coordinator': 'HR',
-        'Juniour HR Generalist': 'HR',
         'HR Generalist': 'HR',
         'HR Coordinator': 'HR',
-        'Administrative Assistant': 'HR',
         'Receptionist': 'HR',
+        'Director': 'HR',
+        'HR Manager': 'HR',
+        'Data Entry Clerk': 'HR',
+        'Recruiter': 'HR',
+        'Administrative Assistant': 'HR',
+        'Office Manager': 'HR',
+        'Training Specialist': 'HR',
+        'Director of Human Resources': 'HR',
+        'Human Resources Manager': 'HR',
+        'Director of Human Capital': 'HR',
         'Sales Associate': 'Sales',
         'Sales Director': 'Sales',
-        'Customer Service Manager' : 'Sales',
-        'Account Manager' : 'Sales',
         'Sales Representative': 'Sales',
         'Sales Manager': 'Sales',
         'Customer Service Representative': 'Sales',
         'Sales Executive': 'Sales',
+        'Account Manager': 'Sales',
+        'Customer Success Rep': 'Sales',
+        'Customer Service Rep': 'Sales',
         'Director of Operation': 'Operation',
         'Project Manager': 'Operation',
         'Project Engineer': 'Operation',
         'Operations Manager': 'Operation',
-        'Operations Director': 'Operation'
+        'Operations Director': 'Operation',
+        'VP of Operations': 'Operation',
+        'Sales Operation Manager': 'Operation',
+        'Supply Chain Manager': 'Operation',
+        'Operations Analyst': 'Operation',
+        'Project Coordinator': 'Operation',
+        'Supply Chain Analyst': 'Operation'
     }
 
     # Create a new column 'label' based on the mapping
