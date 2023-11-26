@@ -12,17 +12,8 @@ if __name__ == '__main__':
     df = pd.read_csv('data/salary_by_job_country/Salary.csv')
     print(list(df.columns))
 
-
-    # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
-
-    res =df.loc[(df['Education Level'] == 3) & (df['Gender']=='Male')] # Female
-    final_result =res['Job Title'].value_counts()
-
-    print('*')
-
     names_of_races = df['Race'].unique()
-    print(list(
-        names_of_races))  # ['White' 'Hispanic' 'Asian' 'Korean' 'Chinese' 'Australian' 'Welsh', 'African American' 'Mixed' 'Black']
+    print(list(names_of_races))  # ['White' 'Hispanic' 'Asian' 'Korean' 'Chinese' 'Australian' 'Welsh', 'African American' 'Mixed' 'Black']
 
     names_of_countries = df['Country'].unique()
     print(list(names_of_countries))  # ['UK' 'USA' 'Canada' 'China' 'Australia']
@@ -31,6 +22,23 @@ if __name__ == '__main__':
     names_of_Job_Title = df['Job Title'].unique()
     print(list(names_of_Job_Title)) # ['Software Engineer' 'Data Analyst' 'Manager' 'Sales Associate' 'Director', 'Marketing Analyst' 'Product Manager' 'Sales Manager', 'Marketing Coordinator' 'Scientist' 'Software Developer' 'HR Manager', 'Financial Analyst' 'Project Manager' 'Customer Servic
     print('*')
+
+
+
+
+    groups_by_races = df.groupby('Race')
+    for race, mini_df_by_race in groups_by_races:
+        print("The race type is: ", race)
+        print(mini_df_by_race)
+        print(mini_df_by_race.shape[0])
+        print('*')
+
+    data_length = df.shape[0]
+    print('*')
+
+
+
+
 
     # Classification of  job title:
     # Finance = Financial Manager , Financial Analyst , Accountant
@@ -122,21 +130,7 @@ if __name__ == '__main__':
     # Display the result
     print(df)
 
+    # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
 
-    groups_by_races = df.groupby('Race')
-    for race, mini_df_by_race in groups_by_races:
-        print("The race type is: ", race)
-        print(mini_df_by_race)
-        print(mini_df_by_race.shape[0])
-        print('*')
-
-
-    data_length = df.shape[0]
-    print('*')
-
-    groups_by_races = df.groupby('Race')
-    for race, mini_df_by_race in groups_by_races:
-        print("The race type is: ", race)
-        print(mini_df_by_race)
-        print(mini_df_by_race.shape[0])
-        print('*')
+    res =df.loc[(df['Education Level'] == 3) & (df['Gender']=='')] # Female
+    final_result =res['Job Title'].value_counts()
