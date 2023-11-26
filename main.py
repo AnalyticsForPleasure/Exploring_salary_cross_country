@@ -12,6 +12,14 @@ if __name__ == '__main__':
     df = pd.read_csv('data/salary_by_job_country/Salary.csv')
     print(list(df.columns))
 
+
+    # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
+
+    res =df.loc[(df['Education Level'] == 3) & (df['Gender']=='Male')] # Female
+    final_result =res['Job Title'].value_counts()
+
+    print('*')
+
     names_of_races = df['Race'].unique()
     print(list(
         names_of_races))  # ['White' 'Hispanic' 'Asian' 'Korean' 'Chinese' 'Australian' 'Welsh', 'African American' 'Mixed' 'Black']
@@ -31,12 +39,6 @@ if __name__ == '__main__':
     # HR = Human Resources Manager , HR Generalist, HR Coordinator , Receptionist , Director , HR Manager, data entry clerk , Recruiter, Administrative Assistant, Office Manager, Training Specialist, Director of Human Resources, Human Resources Manager , Direcotor of Human Capital
     # Sales = Sales Associate , Sales Director, Sales Representative, Sales Manager, Customer Service Representative , Sales Executive , Account Manager, Customer Success Rep, Customer Service Rep,
     # Operation = Director of Operation, Project Manager , Project Engineer, Operations Manager, Operations Director , VP of Operations , Sales Operation Manager, Supply Chain Manager, Operations Analyst, Project Coodunator , Supply Chain Analyst ,
-    #
-    # data = {'job_title': ['Financial Manager', 'Engineer', 'Software Engineer', 'Human Resources Manager',
-    #                       'Sales Associate', 'Director of marketing', 'Financial Analyst', 'Data Scientist',
-    #                       'Research Scientist', 'Sales Director', 'HR Coordinator', 'Project Manager',
-    #                       'Marketing Manager', 'Full Stack Engineer']}
-    # df = pd.DataFrame(data)
 
     # Define mapping of job titles to categories
     job_category_mapping = {
@@ -120,6 +122,13 @@ if __name__ == '__main__':
     # Display the result
     print(df)
 
+
+    groups_by_races = df.groupby('Race')
+    for race, mini_df_by_race in groups_by_races:
+        print("The race type is: ", race)
+        print(mini_df_by_race)
+        print(mini_df_by_race.shape[0])
+        print('*')
 
 
     data_length = df.shape[0]
