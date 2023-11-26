@@ -129,6 +129,9 @@ if __name__ == '__main__':
     print(df)
 
     # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
+    phd_users = df.loc[(df['Education Level'] == 3)]
+    phd_female = phd_users.loc[(df['Gender'] == 'Female')]  # Female
+    phd_male = phd_users.loc[(df['Gender'] == 'Male')]  # Female
 
-    res = df.loc[(df['Education Level'] == 3) & (df['Gender'] == '')]  # Female
-    final_result = res['Job Title'].value_counts()
+    print(phd_female['Job Title'].value_counts())
+    print(phd_male['Job Title'].value_counts())
