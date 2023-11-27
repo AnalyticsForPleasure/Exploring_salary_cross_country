@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap # in order to add the gradient color
+import seaborn as sns
 
 # Datasets:
 # https://www.kaggle.com/datasets/amirmahdiabbootalebi/salary-by-job-title-and-country
@@ -7,7 +10,11 @@ import numpy as np
 # https://www.kaggle.com/datasets/aijobs/global-salaries-in-ai-ml-data-science
 # https://www.kaggle.com/datasets/andrewmvd/data-analyst-jobs
 
-
+# **************************************************************************************************************
+# Function  name: top_phd_position_for_men_and_women
+# input:
+# return value:
+# ****************************************************************************************************************
 def top_phd_position_for_men_and_women(df):
 
     # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
@@ -19,12 +26,30 @@ def top_phd_position_for_men_and_women(df):
     res_female =  top_phd_position_for_female_jobs.reset_index()
     res_male = top_phd_position_for_male_jobs.reset_index()
     print('*')
-
     return res_male , res_female
+
+# **************************************************************************************************************
+# Function  name: multi_bar_plot_chart_for_PhD
+# input:
+# return value:
+# ***************************************************************************************************************
+
+def multi_bar_plot_chart_for_PhD(res_male, res_female):
+    plt.subplot(1, 2, subplot)
+    ax = sns.barplot(x='Job Title', y='count', data=res_male, res_female, color=slateblue)
+    plt.title('Types of positions do individuals with Ph.D typically holds', fontsize=30)
+    plt.xlabel(None)
+    plt.xticks(res_female.index, res_female[1], fontsize=25)
+    plt.ylabel('Number of Ph.D holders', fontsize=25)
+    plt.yticks(fontsize=17)
+    plt.ylim(y_min, none)
+    sns.despine(bottom=True)
+    ax.grid(False)
+    ax.tick_params(bottom - False, left=True)
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('data/salary_by_job_country/Salary.csv')
+    df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
     print(list(df.columns))
 
     names_of_races = df['Race'].unique()
@@ -143,4 +168,7 @@ if __name__ == '__main__':
     # Display the result
     print(df)
 
-    top_phd_position_for_men_and_women()
+    my_result, my_result2 = top_phd_position_for_men_and_women(df)
+    multi_bar_plot_chart_for_PhD(my_result ,my_result2 )
+    print('*')
+    print('*')
