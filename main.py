@@ -8,6 +8,21 @@ import numpy as np
 # https://www.kaggle.com/datasets/andrewmvd/data-analyst-jobs
 
 
+def top_phd_position_for_men_and_women(df):
+
+    # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
+    phd_users = df.loc[(df['Education Level'] == 3)]
+    phd_female = phd_users.loc[(df['Gender'] == 'Female')]  # Female
+    phd_male = phd_users.loc[(df['Gender'] == 'Male')]  # Male
+    top_phd_position_for_female_jobs = phd_female['Job Title'].value_counts().head(n=6)
+    top_phd_position_for_male_jobs = phd_male['Job Title'].value_counts().head(n=6)
+    res_female =  top_phd_position_for_female_jobs.reset_index()
+    res_male = top_phd_position_for_male_jobs.reset_index()
+    print('*')
+
+    return res_male , res_female
+
+
 if __name__ == '__main__':
     df = pd.read_csv('data/salary_by_job_country/Salary.csv')
     print(list(df.columns))
@@ -128,10 +143,4 @@ if __name__ == '__main__':
     # Display the result
     print(df)
 
-    # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
-    phd_users = df.loc[(df['Education Level'] == 3)]
-    phd_female = phd_users.loc[(df['Gender'] == 'Female')]  # Female
-    phd_male = phd_users.loc[(df['Gender'] == 'Male')]  # Female
-
-    print(phd_female['Job Title'].value_counts())
-    print(phd_male['Job Title'].value_counts())
+    top_phd_position_for_men_and_women()
