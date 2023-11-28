@@ -30,13 +30,32 @@ def top_phd_position_for_men_and_women(df):
     return res_female , res_male
 
 # **************************************************************************************************************
+# Function  name: fix_str- helper function
+# input:
+# return value:
+# ***************************************************************************************************************
+def fix_str(my_label):
+    pos = my_label.find(' ')
+    final_str = my_label[:pos] + '\n' + my_label[pos:]
+    return final_str
+
+
+# **************************************************************************************************************
 # Function  name: multi_bar_plot_chart_for_PhD
 # input:
 # return value:
 # ***************************************************************************************************************
+def multi_bar_subplots_chart_for_PhD(res_female, res_male):
 
-def multi_bar_plot_chart_for_PhD(res_female, res_male):
-    labels_male = res_male.loc[:,'Job Title'] # df.loc[:k, 'pts']
+    labels_male = list(res_male.loc[:,'Job Title'])
+    my_new_labels_male = []
+
+    for current_label in labels_male:
+        res = fix_str(current_label)
+        my_new_labels_male.append(res)
+        print('*')
+
+    #labels_male = res_male.loc[:,'Job Title'] # df.loc[:k, 'pts']
     print('*')
     #['Data\nScientist', 'Research\nScientist', 'Software\nEngineer\nManager', 'Project\nEngineer','Product\nMarketing\nManager', 'Research\nDirector']
     labels_female =res_female.loc[:,'Job Title']
@@ -55,7 +74,7 @@ def multi_bar_plot_chart_for_PhD(res_female, res_male):
     plt.title('Types of positions for male with a Ph.D', fontsize=18, fontdict=fontdict_input,
               fontname='Franklin Gothic Medium Cond')
     plt.bar(x - width / 2 + 0.08, Male_PhD, width, label='test1', hatch='^', color=np.array((199, 66, 120)) / 255)
-    plt.xticks([0, 1, 2, 3, 4, 5], labels_male, fontsize=12.5)
+    plt.xticks([0, 1, 2, 3, 4, 5], my_new_labels_male, fontsize=12.5)
 
     plt.subplot(122)
     plt.title('Types of positions for female with a Ph.D', fontsize=18, fontdict=fontdict_input,
@@ -66,6 +85,10 @@ def multi_bar_plot_chart_for_PhD(res_female, res_male):
     plt.figlegend(loc='upper right', ncol=1, labelspacing=0.4, fontsize=14, bbox_to_anchor=(1.11, 0.9))
     plt.tight_layout(w_pad=6)
     plt.show()
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -98,97 +121,8 @@ if __name__ == '__main__':
     # data_length = df.shape[0]
     # print('*')
 
-    # Classification of  job title:
-    # Finance = Financial Manager , Financial Analyst , Accountant
-    # Hi - tech = Engineer , Software Engineer, Software Developer , Data Scientist , Research Scientist , Research director, Principal Scientist, Scientist , Data Analyst , Data Scientist, Full Stack Engineer , Front and Developer, Bank end Developer , director of data Science , Web Developer , IT Support, UX Designer, Network Enineer, help desk analyst, Graphic Designer, Web Developer, Chief Technology Officer, Chief  Data Officer, IT Support SpecialistPrecipal Engineer, Director of Product Managemnet
-    # Marketing = Director of marketing , Marketing Analyst , Marketing Manager, digital Marketing Manager , Content Marketing Manager, Social Media Specialist, Product Designer , Marketing Coordinator, Creative Director, Business Analyst, Public Relations Manager
-    # HR = Human Resources Manager , HR Generalist, HR Coordinator , Receptionist , Director , HR Manager, data entry clerk , Recruiter, Administrative Assistant, Office Manager, Training Specialist, Director of Human Resources, Human Resources Manager , Direcotor of Human Capital
-    # Sales = Sales Associate , Sales Director, Sales Representative, Sales Manager, Customer Service Representative , Sales Executive , Account Manager, Customer Success Rep, Customer Service Rep,
-    # Operation = Director of Operation, Project Manager , Project Engineer, Operations Manager, Operations Director , VP of Operations , Sales Operation Manager, Supply Chain Manager, Operations Analyst, Project Coodunator , Supply Chain Analyst ,
 
-    # # Define mapping of job titles to categories
-    # job_category_mapping = {
-    #     'Financial Manager': 'Finance',
-    #     'Financial Analyst': 'Finance',
-    #     'Accountant': 'Finance',
-    #     'Engineer': 'Hi-tech',
-    #     'Software Engineer': 'Hi-tech',
-    #     'Software Developer': 'Hi-tech',
-    #     'Data Scientist': 'Hi-tech',
-    #     'Research Scientist': 'Hi-tech',
-    #     'Research director': 'Hi-tech',
-    #     'Principal Scientist': 'Hi-tech',
-    #     'Scientist': 'Hi-tech',
-    #     'Data Analyst': 'Hi-tech',
-    #     'Full Stack Engineer': 'Hi-tech',
-    #     'Front and Developer': 'Hi-tech',
-    #     'Bank end Developer': 'Hi-tech',
-    #     'director of data Science': 'Hi-tech',
-    #     'Web Developer': 'Hi-tech',
-    #     'IT Support': 'Hi-tech',
-    #     'UX Designer': 'Hi-tech',
-    #     'Network Engineer': 'Hi-tech',
-    #     'Help Desk Analyst': 'Hi-tech',
-    #     'Graphic Designer': 'Hi-tech',
-    #     'Chief Technology Officer': 'Hi-tech',
-    #     'Chief Data Officer': 'Hi-tech',
-    #     'IT Support Specialist': 'Hi-tech',
-    #     'Principal Engineer': 'Hi-tech',
-    #     'Director of Product Management': 'Hi-tech',
-    #     'Director of marketing': 'Marketing',
-    #     'Marketing Analyst': 'Marketing',
-    #     'Marketing Manager': 'Marketing',
-    #     'Digital Marketing Manager': 'Marketing',
-    #     'Content Marketing Manager': 'Marketing',
-    #     'Social Media Specialist': 'Marketing',
-    #     'Product Designer': 'Marketing',
-    #     'Marketing Coordinator': 'Marketing',
-    #     'Creative Director': 'Marketing',
-    #     'Business Analyst': 'Marketing',
-    #     'Public Relations Manager': 'Marketing',
-    #     'Human Resources Manager': 'HR',
-    #     'HR Generalist': 'HR',
-    #     'HR Coordinator': 'HR',
-    #     'Receptionist': 'HR',
-    #     'Director': 'HR',
-    #     'HR Manager': 'HR',
-    #     'Data Entry Clerk': 'HR',
-    #     'Recruiter': 'HR',
-    #     'Administrative Assistant': 'HR',
-    #     'Office Manager': 'HR',
-    #     'Training Specialist': 'HR',
-    #     'Director of Human Resources': 'HR',
-    #     'Human Resources Manager': 'HR',
-    #     'Director of Human Capital': 'HR',
-    #     'Sales Associate': 'Sales',
-    #     'Sales Director': 'Sales',
-    #     'Sales Representative': 'Sales',
-    #     'Sales Manager': 'Sales',
-    #     'Customer Service Representative': 'Sales',
-    #     'Sales Executive': 'Sales',
-    #     'Account Manager': 'Sales',
-    #     'Customer Success Rep': 'Sales',
-    #     'Customer Service Rep': 'Sales',
-    #     'Director of Operation': 'Operation',
-    #     'Project Manager': 'Operation',
-    #     'Project Engineer': 'Operation',
-    #     'Operations Manager': 'Operation',
-    #     'Operations Director': 'Operation',
-    #     'VP of Operations': 'Operation',
-    #     'Sales Operation Manager': 'Operation',
-    #     'Supply Chain Manager': 'Operation',
-    #     'Operations Analyst': 'Operation',
-    #     'Project Coordinator': 'Operation',
-    #     'Supply Chain Analyst': 'Operation'
-    # }
-    #
-    # # Create a new column 'label' based on the mapping
-    # df['Job_group'] = df['Job_Title'].map(job_category_mapping)
-
-    # Display the result
-    print(df)
 
     res_female, res_female =top_phd_position_for_men_and_women(df)
-    multi_bar_plot_chart_for_PhD(res_female ,res_female )
-    print('*')
+    multi_bar_subplots_chart_for_PhD(res_female ,res_female )
     print('*')
