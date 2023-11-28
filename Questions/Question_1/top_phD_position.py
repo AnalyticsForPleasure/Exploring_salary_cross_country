@@ -26,7 +26,8 @@ def top_phd_position_for_men_and_women(df):
     res_female =  top_phd_position_for_female_jobs.reset_index()
     res_male = top_phd_position_for_male_jobs.reset_index()
     print('*')
-    return res_male , res_female
+
+    return res_female , res_male
 
 # **************************************************************************************************************
 # Function  name: multi_bar_plot_chart_for_PhD
@@ -34,18 +35,37 @@ def top_phd_position_for_men_and_women(df):
 # return value:
 # ***************************************************************************************************************
 
-def multi_bar_plot_chart_for_PhD(res_male, res_female):
-    plt.subplot(1, 2, subplot)
-    ax = sns.barplot(x='Job Title', y='count', data=res_male, res_female, color=slateblue)
-    plt.title('Types of positions do individuals with Ph.D typically holds', fontsize=30)
-    plt.xlabel(None)
-    plt.xticks(res_female.index, res_female[1], fontsize=25)
-    plt.ylabel('Number of Ph.D holders', fontsize=25)
-    plt.yticks(fontsize=17)
-    plt.ylim(y_min, none)
-    sns.despine(bottom=True)
-    ax.grid(False)
-    ax.tick_params(bottom - False, left=True)
+def multi_bar_plot_chart_for_PhD(res_female, res_male):
+    labels_male = res_male.loc[:,'Job Title'] # df.loc[:k, 'pts']
+    print('*')
+    #['Data\nScientist', 'Research\nScientist', 'Software\nEngineer\nManager', 'Project\nEngineer','Product\nMarketing\nManager', 'Research\nDirector']
+    labels_female =res_female.loc[:,'Job Title']
+    print('*')
+    #['Data\nScientist', 'Research\nScientist', 'Software\nEngineer\nManager', 'Project\nEngineer', 'Product\nMarketing\nManager', 'Research\nDirector']
+    Male_PhD = res_male.loc[:,'count']
+    Female_PhD = res_female.loc[:,'count']
+
+    x = np.arange(len(labels_female))
+    width = 0.5
+
+    plt.figure(figsize=(12, 5))
+
+    plt.subplot(121)
+    fontdict_input = {'fontsize': 13, 'weight': 'heavy', 'ha': 'center', 'alpha': 0.9, 'color': 'Gray'}
+    plt.title('Types of positions for male with a Ph.D', fontsize=18, fontdict=fontdict_input,
+              fontname='Franklin Gothic Medium Cond')
+    plt.bar(x - width / 2 + 0.08, Male_PhD, width, label='test1', hatch='^', color=np.array((199, 66, 120)) / 255)
+    plt.xticks([0, 1, 2, 3, 4, 5], labels_male, fontsize=12.5)
+
+    plt.subplot(122)
+    plt.title('Types of positions for female with a Ph.D', fontsize=18, fontdict=fontdict_input,
+              fontname='Franklin Gothic Medium Cond')
+    plt.bar(x - width / 2 + 0.08, Female_PhD, width, hatch='/', color=np.array((199, 199, 92)) / 255)
+    plt.xticks([0, 1, 2, 3, 4, 5], labels_female, fontsize=12.5)
+
+    plt.figlegend(loc='upper right', ncol=1, labelspacing=0.4, fontsize=14, bbox_to_anchor=(1.11, 0.9))
+    plt.tight_layout(w_pad=6)
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -68,15 +88,15 @@ if __name__ == '__main__':
         names_of_Job_Title))
     print('*')
 
-    groups_by_races = df.groupby('Race')
-    for race, mini_df_by_race in groups_by_races:
-        print("The race type is: ", race)
-        print(mini_df_by_race)
-        print(mini_df_by_race.shape[0])
-        print('*')
-
-    data_length = df.shape[0]
-    print('*')
+    # groups_by_races = df.groupby('Race')
+    # for race, mini_df_by_race in groups_by_races:
+    #     print("The race type is: ", race)
+    #     print(mini_df_by_race)
+    #     print(mini_df_by_race.shape[0])
+    #     print('*')
+    #
+    # data_length = df.shape[0]
+    # print('*')
 
     # Classification of  job title:
     # Finance = Financial Manager , Financial Analyst , Accountant
@@ -168,7 +188,7 @@ if __name__ == '__main__':
     # Display the result
     print(df)
 
-    my_result, my_result2 = top_phd_position_for_men_and_women(df)
-    multi_bar_plot_chart_for_PhD(my_result ,my_result2 )
+    res_female, res_female =top_phd_position_for_men_and_women(df)
+    multi_bar_plot_chart_for_PhD(res_female ,res_female )
     print('*')
     print('*')
