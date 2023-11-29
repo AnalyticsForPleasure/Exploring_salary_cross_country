@@ -33,7 +33,7 @@ def creating_a_distributed_dot_plot_for_each_department(df_raw, font_prop):
     ax.set_title('Salary distribution across HR positions', fontdict={'size': 32}, fontsize=font_prop['fontsize'],fontname=font_prop['fontname'])
     ax.set_xlabel('Salary  - In U.S dollars( $ )', alpha=0.7,fontsize=22,fontname=font_prop['fontname'] )
     ax.set_yticks(df.index)
-    ax.set_yticklabels(df['Job Title'].str.title(), fontdict={'horizontalalignment': 'right'}, alpha=0.7)
+    ax.set_yticklabels(df['Job Title'].str.title(), fontdict={'horizontalalignment': 'right'}, alpha=0.7,fontname=font_prop['fontname'],fontsize=15 )
     ax.set_xlim(1, df['Salary'].max() + 2000)
     plt.xticks(alpha=0.7)
 
