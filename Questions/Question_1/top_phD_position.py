@@ -29,6 +29,7 @@ def top_phd_position_for_men_and_women(df):
 
     return res_female, res_male
 
+
 # **************************************************************************************************************
 # Function  name: break_into_separate_word
 # input:
@@ -42,6 +43,7 @@ def break_into_separate_word(labels):
 
     return separate_words_for_each_label
 
+
 # **************************************************************************************************************
 # Function  name: add_numbers_to_plots
 # input:
@@ -50,29 +52,31 @@ def break_into_separate_word(labels):
 def add_numbers_for_each_bar_chart(values, ax, idx_gender):
     # Add numbers on top of the bars
     for i, value in enumerate(values):
-        ax[idx_gender].text(i, value + 0.1, str(value), ha='center', va='bottom',fontname='Franklin Gothic Medium Cond' )
+        ax[idx_gender].text(i, value + 0.1, str(value), ha='center', va='bottom',
+                            fontname='Franklin Gothic Medium Cond')
+
 
 # **************************************************************************************************************
-# Function  name: multi_bar_subplots_chart_for_PhD2
+# Function name: multi_bar_subplots_chart_for_PhD
 # input:
 # return value:
 # ***************************************************************************************************************
-def multi_bar_subplots_chart_for_PhD2(res_female, res_male):
-
+def multi_bar_subplots_chart_for_PhD(res_female, res_male, font_prop):
     fig, ax = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(16, 9))
     data_per_gender = {'female': res_female, 'male': res_male}
     colors = {'female': 'lightpink', 'male': 'lightblue'}
-    fontdict_input = {'fontsize': 13, 'weight': 'heavy', 'ha': 'center', 'alpha': 0.9, 'color': 'Gray'}
 
-    fig.suptitle('PhD Position Gender Comparison in the High-Tech Industry', fontdict=fontdict_input, fontsize=22, fontname='Franklin Gothic Medium Cond', color = 'Black')
+    fig.suptitle('PhD Position Gender Comparison in the High-Tech Industry',
+                 fontsize=font_prop['fontsize'],
+                 fontname=font_prop['fontname'],
+                 color='Black')
 
     for idx, gender in enumerate(['female', 'male']):
-
         gender_phd_count = data_per_gender[gender].loc[:, 'count']
         gender_labels = list(res_male.loc[:, 'Job Title'])
-        ax[idx].set_title(f'Various roles available for {gender} holding a Ph.D.', fontsize=18, fontdict=fontdict_input,fontname='Franklin Gothic Medium Cond')
-        ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9 )
-
+        ax[idx].set_title(f'Roles available for {gender} holding a Ph.D.', fontsize=18, fontdict=font_prop,
+                          fontname=font_prop['fontname'])
+        ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9)
 
         add_numbers_for_each_bar_chart(gender_phd_count, ax, idx_gender=idx)
         plt.savefig('Gender Comparison.jpg', dpi=250, bbox_inches='tight')
@@ -87,7 +91,14 @@ if __name__ == '__main__':
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
     print(list(df.columns))
 
+    font_properties = {'fontsize': 22,
+                       'weight': 'heavy',
+                       'ha': 'center',
+                       'alpha': 0.9,
+                       'color': 'Gray',
+                       'fontname':'Franklin Gothic Medium Cond'
+                       }
     res_female, res_male = top_phd_position_for_men_and_women(df)
-    #res = pd.concat([res_male, res_female], axis=1)
-    multi_bar_subplots_chart_for_PhD2(res_female, res_male)
+    # res = pd.concat([res_male, res_female], axis=1)
+    multi_bar_subplots_chart_for_PhD(res_female, res_male, font_properties)
     print('*')
