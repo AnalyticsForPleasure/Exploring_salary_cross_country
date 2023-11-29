@@ -64,13 +64,13 @@ def multi_bar_subplots_chart_for_PhD2(res_female, res_male):
     colors = {'female': 'lightpink', 'male': 'lightblue'}
     fontdict_input = {'fontsize': 13, 'weight': 'heavy', 'ha': 'center', 'alpha': 0.9, 'color': 'Gray'}
 
-    fig.suptitle('PhD Position Gender Comparison in the High-Tech Industry', fontdict=fontdict_input, fontsize=22, fontname='Franklin Gothic Medium Cond')
+    fig.suptitle('PhD Position Gender Comparison in the High-Tech Industry', fontdict=fontdict_input, fontsize=22, fontname='Franklin Gothic Medium Cond', color = 'Black')
 
     for idx, gender in enumerate(['female', 'male']):
 
         gender_phd_count = data_per_gender[gender].loc[:, 'count']
         gender_labels = list(res_male.loc[:, 'Job Title'])
-        ax[idx].set_title(f'Types of positions for {gender} with a Ph.D', fontsize=18, fontdict=fontdict_input,fontname='Franklin Gothic Medium Cond')
+        ax[idx].set_title(f'Various roles available for {gender} holding a Ph.D.', fontsize=18, fontdict=fontdict_input,fontname='Franklin Gothic Medium Cond')
         ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9 )
 
 
