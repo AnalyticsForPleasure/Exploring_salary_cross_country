@@ -3,10 +3,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import FuncFormatter
 
-
+# **************************************************************************************************************
+# Function  name: format_with_commas
+# input:
+# return value:
+# ****************************************************************************************************************
 def format_with_commas(value, pos):
     return f'{value:,.0f}'
-
+# **************************************************************************************************************
+# Function  name: creating_a_distributed_dot_plot_for_each_department
+# input:
+# return value:
+# ****************************************************************************************************************
 def creating_a_distributed_dot_plot_for_each_department(df_raw, font_prop):
     # Mean and Median city mileage by make
     df = df_raw[['Salary', 'Job Title']].groupby('Job Title').apply(lambda x: x.mean())
@@ -70,8 +78,5 @@ if __name__ == '__main__':
     creating_a_distributed_dot_plot_for_each_department(df_raw, font_properties)
 
 
-    def format_with_commas(value, pos):
-        return f'{value:,.0f}'
 
-    # For x axis
-    ax.xaxis.set_major_formatter(FuncFormatter(format_with_commas))
+
