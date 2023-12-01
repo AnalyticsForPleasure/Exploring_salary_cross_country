@@ -40,13 +40,13 @@ def creating_a_distributed_dot_plot_for_each_department(df_raw, font_prop):
 
     ax.xaxis.set_major_formatter(FuncFormatter(format_with_commas))
 
-    ax.text(28, 13, "$Blue \; dots \; are \; the \: median$", fontdict={'size': 12}, c='blue',
+    ax.text(180000, 10, "$Blue \; dots \; are \; the \: median$", fontdict={'size': 12}, c='blue',
             fontname=font_prop['fontname'])
 
     # Decorations
     lightblue_patch = plt.plot([], [], marker="o", ms=10, ls="", mec=None, color='mediumblue', label="Median")
     plt.legend(handles=lightblue_patch)
-    ax.set_title('Salary distribution across HR positions', fontdict={'size': 42}, fontsize=font_prop['fontsize'],
+    ax.set_title('Salary distribution across HR positions',fontdict={'size': 50}, fontsize=font_prop['fontsize'],
                  fontname=font_prop['fontname'])
     ax.set_xlabel('Salary - In U.S dollars ( $ )', alpha=0.7, fontsize=22, fontname=font_prop['fontname'])
     ax.set_yticks(df.index)

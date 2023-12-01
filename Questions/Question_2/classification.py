@@ -8,8 +8,57 @@ import seaborn as sns
 # https://www.kaggle.com/datasets/amirmahdiabbootalebi/salary-by-job-title-and-country
 
 if __name__ == '__main__':
+    pd.set_option('display.max_rows', 500)  # To see all rows
+    pd.set_option('display.max_columns', 500)  # To see all columns
+    pd.set_option('display.width', 1000)
+
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
     print(list(df.columns))
+
+
+
+
+
+    names_of_races = df['Race'].unique()
+    # ['White' 'Hispanic' 'Asian' 'Korean' 'Chinese' 'Australian' 'Welsh', 'African American' 'Mixed' 'Black']
+    print(list(names_of_races))
+
+    names_of_countries = df['Country'].unique()
+    print(list(names_of_countries))  # ['UK' 'USA' 'Canada' 'China' 'Australia']
+    print('*')
+
+    names_of_Job_Title = df['Job Title'].unique()
+    # ['Software Engineer' 'Data Analyst' 'Manager' 'Sales Associate' 'Director', 'Marketing Analyst' 'Product Manager'
+    # 'Sales Manager', 'Marketing Coordinator' 'Scientist' 'Software Developer' 'HR Manager', 'Financial Analyst'
+    # 'Project Manager' 'Customer Servic]
+    print(list(names_of_Job_Title))
+    print('*')
+
+
+
+    groups_by_Country = df.groupby('Country')
+    for Country, mini_df_by_Country in groups_by_Country:
+        print("The Country name : ", Country)
+        print(mini_df_by_Country)
+        print(mini_df_by_Country.shape[0])
+        res = mini_df_by_Country['Race'].value_counts()
+        print('*')
+
+        groups_by_job_Title = mini_df_by_Country.groupby('Job Title')
+        for job_Title , mini_df_job_title in groups_by_job_Title:
+            print("The job Title : ", job_Title)
+            print(mini_df_job_title)
+            print('*')
+
+    groups_by_races = df.groupby('Race')
+    for race, mini_df_by_race in groups_by_races:
+        print("The race type is: ", race)
+        print(mini_df_by_race)
+        print(mini_df_by_race.shape[0])
+        print('*')
+    #
+    # data_length = df.shape[0]
+    # print('*')
 
 # Classification of  job title:
     # Finance = Financial Manager , Financial Analyst , Accountant
@@ -33,16 +82,16 @@ if __name__ == '__main__':
         'Principal Scientist': 'Hi-tech',
         'Scientist': 'Hi-tech',
         'Data Analyst': 'Hi-tech',
-        'Full Stack Engineer': 'Hi-tech',
-        'Front and Developer': 'Hi-tech',
-        'Bank end Developer': 'Hi-tech',
-        'director of data Science': 'Hi-tech',
+        'Full Stack Engineer': 'R&D',
+        'Front and Developer': 'R&D',
+        'Bank end Developer': 'R&D',
+        'director of data Science': 'R&D',
         'Web Developer': 'Hi-tech',
         'IT Support': 'Hi-tech',
         'UX Designer': 'Hi-tech',
         'Network Engineer': 'Hi-tech',
         'Help Desk Analyst': 'Hi-tech',
-        'Graphic Designer': 'Hi-tech',
+        'Graphic Designer': 'Product development',
         'Chief Technology Officer': 'Hi-tech',
         'Chief Data Officer': 'Hi-tech',
         'IT Support Specialist': 'Hi-tech',
