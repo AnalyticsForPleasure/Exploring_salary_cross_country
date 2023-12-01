@@ -1,6 +1,4 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import matthews_corrcoef
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,9 +9,6 @@ if __name__ == '__main__':
 
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
     df_male = df.loc[df['Gender'] == 'Male', :]
-    # encode = LabelEncoder()
-    # df_male["encoded_jobtitle"] = encode.fit_transform(df_male["Job Title"])
-    # groups = df.groupby('Job Title')
     print(f'{len(df_male["Job Title"].unique())}')
     print(f'{len(df_male["Education Level"].unique())}')
     columns_names = df_male["Education Level"].unique()
@@ -21,7 +16,6 @@ if __name__ == '__main__':
 
     matrix = pd.DataFrame(data=np.zeros((96, 4)),
                           index=rows_names,
-                          # columns=['Highschool', 'Bsc', 'Master', 'PhD'],
                           dtype=int)
 
     for idx, current_row in df_male.iterrows():
@@ -45,17 +39,3 @@ if __name__ == '__main__':
     )
 
     plt.show()
-    # corr = df_male.loc[:,["encoded_jobtitle", "Education Level"]].corr()
-    # print(corr)
-
-    # ax = sns.heatmap(
-    #     corr,
-    #     vmin=-1, vmax=1, center=0,
-    #     cmap=sns.diverging_palette(20, 220, n=200),
-    #     square=True
-    # )
-    # ax.set_xticklabels(
-    #     ax.get_xticklabels(),
-    #     rotation=45,
-    #     horizontalalignment='right'
-    # );
