@@ -2,6 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+from matplotlib.colors import LinearSegmentedColormap
+
 # **************************************************************************************************************
 # Function  name: retrieving_the_mean_salary_of_a_asian_data_analyst
 # input: entering the dataframe
@@ -45,9 +47,16 @@ def creating_an_opposite_bar_chart(final_result , font_prop):
     ax.set_xticklabels(countries,
                        fontdict={'fontsize': 14})
 
+    norm = plt.Normalize(min(avg_salary), max(avg_salary))
+    #colors = plt.cm.viridis(norm(avg_salary))
+
+    colors = ['darkgreen', 'green', 'lightgreen', 'darkgreen']
+
+    bars = ax.bar(countries, avg_salary, color=colors)
     ax.set_title(f'The average salary for male Asian data analysts across the identical continents', fontsize=18, fontdict=font_prop,fontname=font_prop['fontname'])
     for tick in ax.get_xticklabels():
         tick.set_rotation(45)
+
 
     plt.show()
 
