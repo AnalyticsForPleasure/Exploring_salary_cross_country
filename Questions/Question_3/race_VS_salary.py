@@ -2,6 +2,55 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+# **************************************************************************************************************
+# Function  name: retrieving_the_mean_salary_of_a_asian_data_analyst
+# input: entering the dataframe
+# return value:
+# ***************************************************************************************************************
+
+def retrieving_the_mean_salary_of_a_asian_data_analyst(df):
+    male_data = df.loc[(df['Gender'] == 'Male')]
+    relevent_data = male_data.loc[(male_data['Race'] == 'Asian') & (male_data['Job Title'] == 'Data Analyst')]
+    relevent_data2 = relevent_data.loc[
+        (relevent_data['Years of Experience'] >= 5) & (relevent_data['Years of Experience'] <= 10)]
+    result = relevent_data2.groupby(['Country'])['Salary'].mean()
+    final_result = result.reset_index()
+    Years_of_experience_result = relevent_data2.groupby(['Country'])['Salary'].count()
+    Years_of_experience_result_std = relevent_data2.groupby(['Country'])['Salary'].std()
+    return final_result
+
+
+
+# **************************************************************************************************************
+# Function  name: creating_an_opposite_bar_chart
+# input: entering the dataframe
+# return value:
+# ***************************************************************************************************************
+def creating_an_opposite_bar_chart(final_result , font_prop):
+
+    countries  = final_result.loc[:,'Country']
+    avg_salary  = final_result.loc[:,'Salary']
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    # increase space below subplot
+    fig.subplots_adjust(bottom=0.3)
+    ax.bar(countries,
+           avg_salary,
+           width=0.3,
+           )
+    # invert y axis
+    ax.invert_yaxis()
+    # label x axis
+    ax.set_xticks(range(len(final_result)))
+    ax.set_xticklabels(countries,
+                       fontdict={'fontsize': 14})
+
+    ax.set_title(f'The average salary for male Asian data analysts across the identical continents', fontsize=18, fontdict=font_prop,fontname=font_prop['fontname'])
+    for tick in ax.get_xticklabels():
+        tick.set_rotation(45)
+
+    plt.show()
+
 
 if __name__ == '__main__':
     pd.set_option('display.max_rows', 500)  # To see all rows
@@ -11,51 +60,20 @@ if __name__ == '__main__':
     df = pd.read_csv('/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/data/salary_by_job_country/Salary.csv')
     print('*')
 
-    relevent_data = df.loc[(df['Gender'] == 'Female') & (df['Education Level'] == 1)]
+
+    font_properties = {'fontsize': 22,
+                       'weight': 'heavy',
+                       'ha': 'center',
+                       'alpha': 0.9,
+                       'color': 'Gray',
+                       'fontname':'Franklin Gothic Medium Cond'
+                       }
+
+
+    res = retrieving_the_mean_salary_of_a_asian_data_analyst(df)
+    creating_an_opposite_bar_chart(res,font_properties )
+
     print('*')
-    relevent_data = relevent_data.loc[:, ['Salary', 'Race']]
-    relevent_data_by_race = relevent_data.groupby('Race').mean().reset_index()
-    relevent_data_by_race = relevent_data_by_race.sort_values('Salary', ascending=False)
 
-    #plt.scatter(df['Race'], df['Salary'])
-    sns.stripplot(y="Salary", x="Race", data=relevent_data)
-    # Plot lines for the average
-    sns.scatterplot(y="Salary", x="Race", data=relevent_data_by_race, marker='|', s=1000, color='k')
-    plt.show()
-    print('*')
-    #                          df.loc[(df[team_abbreviation’] == 'LAL') & (df['pts'] > 30)]
-    #
-    # grouping_by_gender = df.groupby('Gender')
-    # for gender, mini_df_gender in grouping_by_gender:
-    #     print("Gender :",  gender)
-    #     print(mini_df_gender)
-    #     mini_df_gender.shape[0] # Female 6,684
-    #     under_2_constrains= mini_df_gender.loc[mini_df_gender['Education Level'] == 1] # men of women with a bachelor degree - 1198 rows
-    #     print('*')
-
-
-
-        # gouping_by_race = under_2_constrains.groupby('Race')
-        # for race , mini_df_race in gouping_by_race:
-        #     print("Race :", race)
-        #     print(mini_df_race)
-        #     mean_by_group  = mini_df_race['Salary'].mean()
-        #     #mini_df_race.shape[0]
-        #     print(mean_by_group)
-        #     print('*')
-
-
-
-
-
-        # print('*')
-
-        # groups_by_Country = df.groupby('Country')
-        # for Country, mini_df_by_Country in groups_by_Country:
-        #     print("The Country name : ", Country)
-        #     print(mini_df_by_Country)
-        #     print(mini_df_by_Country.shape[0])
-        #     res = mini_df_by_Country['Race'].value_counts()
-        #     print('*')
 
 
