@@ -48,7 +48,7 @@ def creating_an_opposite_bar_chart(final_result , font_prop):
                        fontdict={'fontsize': 14})
 
     norm = plt.Normalize(min(avg_salary), max(avg_salary))
-    #colors = plt.cm.viridis(norm(avg_salary))
+
 
     colors = ['darkgreen', 'green', 'lightgreen', 'darkgreen']
 
