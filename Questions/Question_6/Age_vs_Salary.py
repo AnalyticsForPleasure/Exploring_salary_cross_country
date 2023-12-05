@@ -70,6 +70,7 @@ if __name__ == '__main__':
 
     # draw colored scatterplot
     colors = [GRAY7, RED1, RED1, RED1, GRAY7, RED1] # GRAY7
+    # TODO: need to understand why line 74 is not running
     ax1.scatter(y_values[:, 0], y_values[:, 1], color=colors, s=80)
 
     # annotate with colored labels with offsets
