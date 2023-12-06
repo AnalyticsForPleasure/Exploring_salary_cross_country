@@ -11,7 +11,7 @@ if __name__ == '__main__':
 
     df = pd.read_csv \
         ('/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/data/salary_by_job_country/Salary.csv')
-
+    print('*')
     # Adding the coordinates
     df['Salary'] = df['Salary'].apply(lambda x: int(x))
     df['Age'] = df['Age'].apply(lambda x: int(x))
@@ -71,21 +71,20 @@ if __name__ == '__main__':
     # draw colored scatterplot
     colors = [GRAY7, RED1, RED1, RED1, GRAY7, RED1] # GRAY7
     # TODO: need to understand why line 74 is not running
-    ax1.scatter(y_values[:, 0], y_values[:, 1], color=colors, s=80)
+    #ax1.scatter(y_values[:, 0], y_values[:, 1], color=colors, s=80)
 
     # annotate with colored labels with offsets
     txt_colors = [GRAY6, RED1, RED1, RED1, GRAY6, RED1] #  GRAY6
-    offsets = [(10, -4), (-35, -18), (-7, -18), (10, -4),
-               (10, -4), (10, -4)]
+    offsets = [(10, -4), (-35, -18), (-7, -18), (10, -4),(10, -4), (10, -4)]
 
     #TODO: need to digure out the problem - > c' argument has 6 elements, which is inconsistent with 'x' and 'y' with size 1.
-    for i, n in enumerate(x_values):
-        ax1.annotate('Worker ' + n,  # Model X text of the annotation
-                     y_values[i],  # (x,y) point to annotate
-                     xytext=offsets[i],  # (x,y) to place the text at
-                     textcoords='offset points',  # offset (in points)
-                     color=txt_colors[i],
-                     fontsize=11)
+    # for i, n in enumerate(x_values):
+    #     ax1.annotate('Worker ' + n,  # Model X text of the annotation
+    #                  y_values[i],  # (x,y) point to annotate
+    #                  xytext=offsets[i],  # (x,y) to place the text at
+    #                  textcoords='offset points',  # offset (in points)
+    #                  color=txt_colors[i],
+    #                  fontsize=11)
 
     # draw prior year average point
     ax1.scatter([72], [900], color=GRAY1, s=80)

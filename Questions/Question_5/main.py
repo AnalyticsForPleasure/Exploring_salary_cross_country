@@ -37,5 +37,5 @@ if __name__ == '__main__':
         rotation=45,
         horizontalalignment='right'
     )
-
+    plt.savefig('heatmap_chart.jpg', dpi=250, bbox_inches='tight')
     plt.show()

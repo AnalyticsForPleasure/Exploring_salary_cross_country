@@ -9,7 +9,6 @@ from matplotlib.colors import LinearSegmentedColormap
 # input: entering the dataframe
 # return value:
 # ***************************************************************************************************************
-
 def retrieving_the_mean_salary_of_a_asian_data_analyst(df):
     male_data = df.loc[(df['Gender'] == 'Male')]
     relevent_data = male_data.loc[(male_data['Race'] == 'Asian') & (male_data['Job Title'] == 'Data Analyst')]
@@ -67,7 +66,6 @@ if __name__ == '__main__':
     pd.set_option('display.width', 1000)
 
     df = pd.read_csv('/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/data/salary_by_job_country/Salary.csv')
-    print('*')
 
 
     font_properties = {'fontsize': 22,
