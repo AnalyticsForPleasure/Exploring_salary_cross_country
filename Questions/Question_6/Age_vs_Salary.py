@@ -34,14 +34,7 @@ def creating_a_scatter_avg_chart(df, font_prop):
     df['Years of Experience'] = df['Years of Experience'].apply(lambda x: int(x))
     print(df['Job Title'].value_counts())
     relevant_data = df.loc[(df['Years of Experience'] <= 15) & (df['Job Title'] == 'Software Engineer')]
-    min_age = df['Age'].min()
-    max_age = df['Age'].max()
-    min_age_for_a_data_analyst = relevant_data['Age'].min()
-    max_age_for_a_data_analyst = relevant_data['Age'].max()
-    min_salary = df['Salary'].min()
-    max_salary = df['Salary'].max()
-    min_salary_for_a_data_analyst = relevant_data['Salary'].min()
-    max_salary_for_a_data_analyst = relevant_data['Salary'].max()
+
     x_values = relevant_data['Salary']
     y_values = relevant_data['Age']
     # create new figure
