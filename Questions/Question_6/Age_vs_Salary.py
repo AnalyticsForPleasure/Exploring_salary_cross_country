@@ -37,8 +37,10 @@ def creating_a_scatter_avg_chart(df, font_prop):
     df['Years of Experience'] = df['Years of Experience'].apply(lambda x: int(x))
     #print(df['Job Title'].value_counts())
 
-    job_type = 'Software Engineer'
-    relevant_data = df.loc[(df['Years of Experience'] <= 3) & (df['Job Title'] == job_type)]
+    #job_type = 'Data Scientist'
+
+    job_type = 'Project Engineer'
+    relevant_data = df.loc[(df['Years of Experience'] <= 15) & (df['Job Title'] == job_type)]
 
     x_values = relevant_data['Salary']
     min_salary= x_values.min()
@@ -102,7 +104,7 @@ def creating_a_scatter_avg_chart(df, font_prop):
     # ax.annotate('Oldest Age', xy=(25, 6), xytext=(27, 12), size=14,
     #             arrowprops=dict(arrowstyle='->'), ha='center');
 
-
+    #
     # Upper - Left Corner
     ax.annotate('Lowest Salary', xy=(min_salary + 100 , min_Age ),
                 xycoords='data',
@@ -113,8 +115,7 @@ def creating_a_scatter_avg_chart(df, font_prop):
                                 lw=2.5,
                                 ls='--')
                 )
-
-    ax.annotate('Youngest Age', xy=(min_salary + 100 , min_Age + 0 ),
+    ax.annotate('Youngest Age', xy=(min_salary + 100 , min_Age ),
                 xycoords='data',
                 xytext=(min_salary + 100, min_Age +3  ),
                 textcoords='data',
@@ -125,9 +126,9 @@ def creating_a_scatter_avg_chart(df, font_prop):
                 )
 
     # Down - Left Corner
-    ax.annotate('Oldest Age', xy=(min_salary + 100 , min_Age+ 7 ),
+    ax.annotate('Oldest Age', xy=(min_salary  , max_Age ),
                 xycoords='data',
-                xytext=(min_salary + 100 , min_Age + 5),
+                xytext=(min_salary+min_salary*0.2 , max_Age),
                 textcoords='data',
                 arrowprops=dict(arrowstyle='->',
                                 color='gray',
@@ -135,9 +136,52 @@ def creating_a_scatter_avg_chart(df, font_prop):
                                 ls='--')
                 )
 
-    ax.annotate('Oldest Age', xy=(min_salary + 100 , min_Age+ 7 ),
+    ax.annotate('Lowest Salary', xy=(min_salary , max_Age),
                 xycoords='data',
-                xytext=(min_salary + 10000 , min_Age + 5),
+                xytext=(min_salary  , max_Age-max_Age*0.05 ),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+    # Upper - right Corner
+
+    ax.annotate(' Highest Salary ', xy=(max_salary , min_Age),  # target
+                xycoords='data',
+                xytext=(max_salary - 11000, min_Age+min_Age*0.2),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+    ax.annotate(' Youngest Age', xy=(max_salary , min_Age),  # target
+                xycoords='data',
+                xytext=(max_salary - max_salary*0.2, min_Age),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+    # Down - right Corner
+    ax.annotate('Oldest Age', xy=(max_salary  , max_Age ), # target
+                xycoords='data',
+                xytext=(max_salary , max_Age-max_Age*0.2),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+    #
+    ax.annotate('Highest Salary', xy=(max_salary , max_Age), # target
+                xycoords='data',
+                xytext=(max_salary -max_salary*0.2 , max_Age ),
                 textcoords='data',
                 arrowprops=dict(arrowstyle='->',
                                 color='gray',
