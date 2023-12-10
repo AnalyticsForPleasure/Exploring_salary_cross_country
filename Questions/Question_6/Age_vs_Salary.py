@@ -25,18 +25,29 @@ def my_funct(my_tup, mean_age, mean_salary):
 def format_ticks_with_commas(value, _):
     return f"{value:,.0f}$"
 
-
+# **************************************************************************************************************
+# Function  name: creating_a_scatter_avg_chart
+# input:
+# return value:
+# ***************************************************************************************************************
 def creating_a_scatter_avg_chart(df, font_prop):
 
-    global mean_salary_ds, mean_age_ds
     df['Salary'] = df['Salary'].apply(lambda x: int(x))
     df['Age'] = df['Age'].apply(lambda x: int(x))
     df['Years of Experience'] = df['Years of Experience'].apply(lambda x: int(x))
-    print(df['Job Title'].value_counts())
-    relevant_data = df.loc[(df['Years of Experience'] <= 15) & (df['Job Title'] == 'Software Engineer')]
+    #print(df['Job Title'].value_counts())
+
+    job_type = 'Software Engineer'
+    relevant_data = df.loc[(df['Years of Experience'] <= 3) & (df['Job Title'] == job_type)]
 
     x_values = relevant_data['Salary']
+    min_salary= x_values.min()
+    max_salary = x_values.max()
+
     y_values = relevant_data['Age']
+    min_Age = y_values.min()
+    max_Age = y_values.max()
+
     # create new figure
     fig, ax = plt.subplots(figsize=(8.2, 5.4),  # width, height in inches
                            dpi=110)  # resolution of the figure
@@ -55,6 +66,8 @@ def creating_a_scatter_avg_chart(df, font_prop):
                 xy=(mean_salary_ds, 30))
     ax.annotate('My avg Age',
                 xy=(100000, mean_age_ds))
+
+
     ax.scatter([mean_salary_ds], [mean_age_ds],
                marker='o',
                linestyle='dashed',
@@ -62,10 +75,11 @@ def creating_a_scatter_avg_chart(df, font_prop):
                facecolor='none',
                edgecolor='blue')
 
-    ax.set_title('Distribution of Salary over a specific job roll',
+    ax.set_title(f'Salary distribution within the role of a {job_type}',
                 fontsize=font_prop['fontsize'],
                 fontname=font_prop['fontname'],
                 color='Black')
+
     # invert y axis
     ax.invert_yaxis()
     # change the appearance of ticks, tick labels, and gridlines
@@ -73,6 +87,66 @@ def creating_a_scatter_avg_chart(df, font_prop):
     # # remove chart border
     ax.spines['right'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
+
+
+
+    # Adding arrows inside the chart :
+
+    # ax.annotate('Highest Salary', xy=(25, 6), xytext=(27, 12), size=14,
+    #             arrowprops=dict(arrowstyle='->'), ha='center');
+    # ax.annotate('Lowest Salary', xy=(25, 6), xytext=(27, 12), size=14,
+    #             arrowprops=dict(arrowstyle='->'), ha='center');
+
+    # ax.annotate('Youngest Age', xy=(25, 6), xytext=(27, 12), size=14,
+    #             arrowprops=dict(arrowstyle='->'), ha='center');
+    # ax.annotate('Oldest Age', xy=(25, 6), xytext=(27, 12), size=14,
+    #             arrowprops=dict(arrowstyle='->'), ha='center');
+
+
+    # Upper - Left Corner
+    ax.annotate('Lowest Salary', xy=(min_salary + 100 , min_Age ),
+                xycoords='data',
+                xytext=(min_salary + 10000, min_Age),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+    ax.annotate('Youngest Age', xy=(min_salary + 100 , min_Age + 0 ),
+                xycoords='data',
+                xytext=(min_salary + 100, min_Age +3  ),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+    # Down - Left Corner
+    ax.annotate('Oldest Age', xy=(min_salary + 100 , min_Age+ 7 ),
+                xycoords='data',
+                xytext=(min_salary + 100 , min_Age + 5),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+    ax.annotate('Oldest Age', xy=(min_salary + 100 , min_Age+ 7 ),
+                xycoords='data',
+                xytext=(min_salary + 10000 , min_Age + 5),
+                textcoords='data',
+                arrowprops=dict(arrowstyle='->',
+                                color='gray',
+                                lw=2.5,
+                                ls='--')
+                )
+
+
+
     plt.show()
 
 
