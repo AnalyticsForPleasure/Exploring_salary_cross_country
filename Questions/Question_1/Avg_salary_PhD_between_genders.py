@@ -6,6 +6,31 @@ from matplotlib.colors import LinearSegmentedColormap  # in order to add the gra
 
 
 # **************************************************************************************************************
+# Function  name: break_into_separate_word
+# input:
+# return value:
+# ***************************************************************************************************************
+def break_into_separate_word(labels):
+    separate_words_for_each_label = []
+    for label in labels:
+        separate_words_per_label = '\n'.join(label.split())
+        separate_words_for_each_label.append(separate_words_per_label)
+
+    return separate_words_for_each_label
+
+# **************************************************************************************************************
+# Function  name: add_numbers_to_plots
+# input:
+# return value:
+# ***************************************************************************************************************
+def add_numbers_for_each_bar_chart(values, ax, idx_gender):
+    # Add numbers on top of the bars
+    for i, value in enumerate(values):
+        ax[idx_gender].text(i, value + 0.1, str(value), ha='center', va='bottom',
+                            fontname='Franklin Gothic Medium Cond')
+
+
+# **************************************************************************************************************
 # Function  name: salary_for_phd_position_separated_by_men_and_women
 # input:
 # return value:
@@ -39,13 +64,34 @@ def salary_for_phd_position_separated_by_men_and_women(df):
     result_avg_salary_male = result_avg_salary_male.head(n=6)
 
     print('*')
-
-
-
     return result_avg_salary_female, result_avg_salary_male
 
 
+# **************************************************************************************************************
+# Function name: multi_bar_subplots_chart_for_PhD
+# input:
+# return value:
+# ***************************************************************************************************************
+def multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result_avg_salary_male, font_prop):
+    fig, ax = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(16, 9))
+    data_per_gender = {'female': result_avg_salary_female, 'male': result_avg_salary_male}
+    colors = {'female': 'lightpink', 'male': 'lightblue'}
 
+    fig.suptitle('Avg Salary for a PhD position Gender Comparison in the High-Tech Industry',
+                 fontsize=font_prop['fontsize'],
+                 fontname=font_prop['fontname'],
+                 color='Black')
+
+    for idx, gender in enumerate(['female', 'male']):
+        gender_phd_count = data_per_gender[gender].loc[:, 'Salary']
+        gender_labels = list(result_avg_salary_male.loc[:, 'Job Title'])
+        ax[idx].set_title(f'Avg Salary for a Roles available for {gender} holding a Ph.D.', fontsize=18, fontdict=font_prop,
+                          fontname=font_prop['fontname'])
+        ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9)
+
+        add_numbers_for_each_bar_chart(gender_phd_count, ax, idx_gender=idx)
+        plt.savefig('Gender Comparison.jpg', dpi=250, bbox_inches='tight')
+    plt.show()
 
 
 
@@ -64,4 +110,6 @@ if __name__ == '__main__':
                        'color': 'Gray',
                        'fontname':'Franklin Gothic Medium Cond'
                        }
-    res_female, res_male = salary_for_phd_position_separated_by_men_and_women(df)
+    result_avg_salary_female, result_avg_salary_male = salary_for_phd_position_separated_by_men_and_women(df)
+    multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result_avg_salary_male, font_properties)
+    print('*')
