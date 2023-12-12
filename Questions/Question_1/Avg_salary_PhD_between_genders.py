@@ -21,6 +21,7 @@ def break_into_separate_word(labels):
 
     return separate_words_for_each_label
 
+
 # **************************************************************************************************************
 # Function  name: add_numbers_to_plots
 # input:
@@ -29,8 +30,8 @@ def break_into_separate_word(labels):
 def add_numbers_for_each_bar_chart(values, ax, idx_gender):
     # Add numbers on top of the bars
     for i, value in enumerate(values):
-
-        ax[idx_gender].text(i, value + 0.1, str(value), ha='center', va='bottom', fontname='Franklin Gothic Medium Cond')
+        ax[idx_gender].text(i, value + 0.1, f'{value:,}', ha='center', va='bottom',
+                            fontname='Franklin Gothic Medium Cond')
         print('*')
 
 
@@ -54,7 +55,7 @@ def salary_for_phd_position_separated_by_men_and_women(df):
     list_of_top_rolls_for_male = list(res_male.loc[:, 'Job Title'])
     print('*')
 
-    top_rolls_for_female  = phd_female[phd_female['Job Title'].isin(list_of_top_rolls_for_female)]
+    top_rolls_for_female = phd_female[phd_female['Job Title'].isin(list_of_top_rolls_for_female)]
     top_rolls_for_male = phd_male[phd_male['Job Title'].isin(list_of_top_rolls_for_male)]
 
     result_avg_salary_female = top_rolls_for_female.groupby(['Job Title'])['Salary'].mean()
@@ -64,13 +65,10 @@ def salary_for_phd_position_separated_by_men_and_women(df):
     result_avg_salary_female.sort_values(by='Salary', inplace=True, ascending=False)
     result_avg_salary_female = result_avg_salary_female.head(n=6)
     result_avg_salary_female['Salary'] = result_avg_salary_female['Salary'].apply(lambda x: int(x))
-    #result_avg_salary_female['Salary'] = result_avg_salary_female['Salary'].apply(lambda x: "{:,}".format(x))
-    print('*')
     result_avg_salary_male = result_avg_salary_male.reset_index()
     result_avg_salary_male.sort_values(by='Salary', inplace=True, ascending=False)
     result_avg_salary_male = result_avg_salary_male.head(n=6)
     result_avg_salary_male['Salary'] = result_avg_salary_male['Salary'].apply(lambda x: int(x))
-    #result_avg_salary_male['Salary'] = result_avg_salary_male['Salary'].apply(lambda x: "{:,}".format(x))
     print('*')
 
     print('*')
@@ -92,9 +90,6 @@ def multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result
                  fontname=font_prop['fontname'],
                  color='Black')
 
-
-
-
     for idx, gender in enumerate(['female', 'male']):
         gender_phd_count = data_per_gender[gender].loc[:, 'Salary']
         gender_labels = list(result_avg_salary_male.loc[:, 'Job Title'])
@@ -105,7 +100,6 @@ def multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result
         add_numbers_for_each_bar_chart(gender_phd_count, ax, idx_gender=idx)
         plt.savefig('Gender Comparison by Salary.jpg', dpi=250, bbox_inches='tight')
     plt.show()
-
 
 
 if __name__ == '__main__':
@@ -121,8 +115,9 @@ if __name__ == '__main__':
                        'ha': 'center',
                        'alpha': 0.9,
                        'color': 'Gray',
-                       'fontname':'Franklin Gothic Medium Cond'
+                       'fontname': 'Franklin Gothic Medium Cond'
                        }
+
     result_avg_salary_female, result_avg_salary_male = salary_for_phd_position_separated_by_men_and_women(df)
     multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result_avg_salary_male, font_properties)
     print('*')
