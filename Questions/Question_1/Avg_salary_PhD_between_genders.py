@@ -2,6 +2,9 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sys
+import matplotlib.ticker as mticker
+import locale
+
 from matplotlib.colors import LinearSegmentedColormap  # in order to add the gradient color
 
 
@@ -26,8 +29,9 @@ def break_into_separate_word(labels):
 def add_numbers_for_each_bar_chart(values, ax, idx_gender):
     # Add numbers on top of the bars
     for i, value in enumerate(values):
-        ax[idx_gender].text(i, value + 0.1, str(value), ha='center', va='bottom',
-                            fontname='Franklin Gothic Medium Cond')
+
+        ax[idx_gender].text(i, value + 0.1, str(value), ha='center', va='bottom', fontname='Franklin Gothic Medium Cond')
+        print('*')
 
 
 # **************************************************************************************************************
@@ -38,6 +42,7 @@ def add_numbers_for_each_bar_chart(values, ax, idx_gender):
 def salary_for_phd_position_separated_by_men_and_women(df):
     # In the hi-tech industry, what types of positions do individuals with a Ph.D. typically hold? ( Male  Vs Female )
     phd_users = df.loc[(df['Education Level'] == 3)]
+
     phd_female = phd_users.loc[(df['Gender'] == 'Female')]  # Female
     phd_male = phd_users.loc[(df['Gender'] == 'Male')]  # Male
     top_phd_position_for_female_jobs = phd_female['Job Title'].value_counts().head(n=6)
@@ -58,10 +63,15 @@ def salary_for_phd_position_separated_by_men_and_women(df):
     result_avg_salary_female = result_avg_salary_female.reset_index()
     result_avg_salary_female.sort_values(by='Salary', inplace=True, ascending=False)
     result_avg_salary_female = result_avg_salary_female.head(n=6)
-
+    result_avg_salary_female['Salary'] = result_avg_salary_female['Salary'].apply(lambda x: int(x))
+    #result_avg_salary_female['Salary'] = result_avg_salary_female['Salary'].apply(lambda x: "{:,}".format(x))
+    print('*')
     result_avg_salary_male = result_avg_salary_male.reset_index()
     result_avg_salary_male.sort_values(by='Salary', inplace=True, ascending=False)
     result_avg_salary_male = result_avg_salary_male.head(n=6)
+    result_avg_salary_male['Salary'] = result_avg_salary_male['Salary'].apply(lambda x: int(x))
+    #result_avg_salary_male['Salary'] = result_avg_salary_male['Salary'].apply(lambda x: "{:,}".format(x))
+    print('*')
 
     print('*')
     return result_avg_salary_female, result_avg_salary_male
@@ -77,20 +87,23 @@ def multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result
     data_per_gender = {'female': result_avg_salary_female, 'male': result_avg_salary_male}
     colors = {'female': 'lightpink', 'male': 'lightblue'}
 
-    fig.suptitle('Avg Salary for a PhD position Gender Comparison in the High-Tech Industry',
+    fig.suptitle('Comparing the average salary for Ph.D. positions in the High-Tech Industry by gender',
                  fontsize=font_prop['fontsize'],
                  fontname=font_prop['fontname'],
                  color='Black')
 
+
+
+
     for idx, gender in enumerate(['female', 'male']):
         gender_phd_count = data_per_gender[gender].loc[:, 'Salary']
         gender_labels = list(result_avg_salary_male.loc[:, 'Job Title'])
-        ax[idx].set_title(f'Avg Salary for a Roles available for {gender} holding a Ph.D.', fontsize=18, fontdict=font_prop,
+        ax[idx].set_title(f'Average salary for positions open to {gender} with a Ph.D', fontsize=18, fontdict=font_prop,
                           fontname=font_prop['fontname'])
         ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9)
 
         add_numbers_for_each_bar_chart(gender_phd_count, ax, idx_gender=idx)
-        plt.savefig('Gender Comparison.jpg', dpi=250, bbox_inches='tight')
+        plt.savefig('Gender Comparison by Salary.jpg', dpi=250, bbox_inches='tight')
     plt.show()
 
 
