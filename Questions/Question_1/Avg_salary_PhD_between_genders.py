@@ -27,12 +27,22 @@ def salary_for_phd_position_separated_by_men_and_women(df):
     top_rolls_for_female  = phd_female[phd_female['Job Title'].isin(list_of_top_rolls_for_female)]
     top_rolls_for_male = phd_male[phd_male['Job Title'].isin(list_of_top_rolls_for_male)]
 
-    for gender, final_table in [('Men', top_rolls_for_male), ('Women', top_rolls_for_female)]:
-        groupby_role = final_table.groupby("Salary")
+    result_avg_salary_female = top_rolls_for_female.groupby(['Job Title'])['Salary'].mean()
+    result_avg_salary_male = top_rolls_for_male.groupby(['Job Title'])['Salary'].mean()
+
+    result_avg_salary_female = result_avg_salary_female.reset_index()
+    result_avg_salary_female.sort_values(by='Salary', inplace=True, ascending=False)
+    result_avg_salary_female = result_avg_salary_female.head(n=6)
+
+    result_avg_salary_male = result_avg_salary_male.reset_index()
+    result_avg_salary_male.sort_values(by='Salary', inplace=True, ascending=False)
+    result_avg_salary_male = result_avg_salary_male.head(n=6)
+
+    print('*')
 
 
 
-    return res_female, res_male
+    return result_avg_salary_female, result_avg_salary_male
 
 
 
