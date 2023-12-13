@@ -9,16 +9,23 @@ if __name__ == '__main__':
 
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
     df_male = df.loc[df['Gender'] == 'Male', :]
+    list_of_top_rolls_for_male= ['Bank end Developer','Front and Developer','Full Stack Engineer','Software Developer','Software Engineer','Principal Engineer','director of data Science','Chief Data Officer']
+    new_df_male = df_male[df_male['Job Title'].isin(list_of_top_rolls_for_male)]
     print(f'{len(df_male["Job Title"].unique())}')
     print(f'{len(df_male["Education Level"].unique())}')
     columns_names = df_male["Education Level"].unique()
-    rows_names = df_male["Job Title"].unique()
+    #rows_names = df_male["Job Title"].unique()
+    rows_names = ['Bank end Developer','Front and Developer','Full Stack Engineer','Software Developer','Software Engineer','Principal Engineer','director of data Science','Chief Data Officer']
+    print('*')
+    #'Software Engineer',
+    #'VP of Operations' 'IT Support' 'Financial Manager
 
-    matrix = pd.DataFrame(data=np.zeros((96, 4)),
+
+    matrix = pd.DataFrame(data=np.zeros((8, 4)), # (96, 4)
                           index=rows_names,
                           dtype=int)
 
-    for idx, current_row in df_male.iterrows():
+    for idx, current_row in new_df_male.iterrows():
         matrix.loc[current_row['Job Title'], current_row['Education Level']] += 1
     print('*')
 
