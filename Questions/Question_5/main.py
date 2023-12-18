@@ -20,9 +20,8 @@ def preparing_the_matrix_before_illustration(df):
     rows_names = ['Bank end Developer', 'Front and Developer', 'Full Stack Engineer', 'Software Developer',
                   'Software Engineer', 'Principal Engineer', 'director of data Science', 'Chief Data Officer']
     print('*')
-    # 'Software Engineer',
-    # 'VP of Operations' 'IT Support' 'Financial Manager
-    matrix = pd.DataFrame(data=np.zeros((8, 4)),  # (96, 4)
+
+    matrix = pd.DataFrame(data=np.zeros((8, 4)),
                           index=rows_names,
                           dtype=int)
     for idx, current_row in new_df_male.iterrows():
@@ -39,7 +38,7 @@ def preparing_the_matrix_before_illustration(df):
 # input:
 # return value:
 # ***************************************************************************************************************
-def creating_the_heatmap(matrix):
+def creating_the_heatmap(matrix,font_prop):
     ax = sns.heatmap(matrix,
                      vmin=0,
                      vmax=matrix.to_numpy().max(),
@@ -52,7 +51,10 @@ def creating_the_heatmap(matrix):
         rotation=45,
         horizontalalignment='right'
     )
+    ax.set_title('Hi-Tech Workforce Insights: \n Education Levels and Job Titles Heat Map', fontdict={'size': 50}, fontsize=font_prop['fontsize'],
+                 fontname=font_prop['fontname'])
     plt.savefig('heatmap_chart.jpg', dpi=250, bbox_inches='tight')
+
     plt.show()
 
 
@@ -63,6 +65,15 @@ if __name__ == '__main__':
 
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
 
+    font_properties = {'fontsize': 32,
+                       'weight': 'heavy',
+                       'ha': 'center',
+                       'alpha': 0.9,
+                       'color': 'Gray',
+                       'fontname': 'Franklin Gothic Medium Cond'
+                       }
+
+
     result = preparing_the_matrix_before_illustration(df)
-    creating_the_heatmap(result)
+    creating_the_heatmap(result,font_properties )
     print('*')
