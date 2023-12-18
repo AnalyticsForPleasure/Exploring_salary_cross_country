@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+import dataframe_image as dfi
 
 # **************************************************************************************************************
 # Function  name: preparing_the_matrix_before_illustration
@@ -31,6 +32,9 @@ def preparing_the_matrix_before_illustration(df):
     new_names = ['Highschool', 'Bsc', 'Master', 'PhD']
     matrix.rename(columns=dict(zip(old_names, new_names)), inplace=True)
 
+    # Creating a matrix illustration using dfi dataframe
+    dfi.export(matrix, filename='/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/output_images/matrix_illustration.png')
+    print('*')
     return matrix
 
 # **************************************************************************************************************
