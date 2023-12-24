@@ -33,7 +33,10 @@ def preparing_the_matrix_before_illustration(df):
     matrix.rename(columns=dict(zip(old_names, new_names)), inplace=True)
 
     # Creating a matrix illustration using dfi dataframe
-    dfi.export(matrix, filename='/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/output_images/matrix_illustration.png')
+    #dfi.export(matrix, filename='/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/output_images/matrix_illustration.png')
+    #dfi.export(matrix.style.set_properties(subset=['Highschool', 'Bsc', 'Master', 'PhD'], **{'max-width': '600px'}),'/home/shay_diy/PycharmProjects/Exploring_salary_cross_country/Questions/Question_5/matrix_illustration1.png')
+              # 'matrix_illustration.png')
+
     print('*')
     return matrix
 
@@ -55,7 +58,7 @@ def creating_the_heatmap(matrix,font_prop):
         rotation=45,
         horizontalalignment='right'
     )
-    ax.set_title('Hi-Tech Workforce Insights: \n Education Levels and Job Titles Heat Map', fontdict={'size': 50}, fontsize=font_prop['fontsize'],
+    ax.set_title('Hi-Tech Workforce Insights: \n Education Levels and Job Titles Heat Map', fontdict={'size': 47}, fontsize=font_prop['fontsize'],
                  fontname=font_prop['fontname'])
     plt.savefig('heatmap_chart.jpg', dpi=250, bbox_inches='tight')
 
@@ -68,6 +71,8 @@ if __name__ == '__main__':
     pd.set_option('display.width', 1000)
 
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
+    column_headers = list(df.columns.values)
+    print('*')
 
     font_properties = {'fontsize': 32,
                        'weight': 'heavy',

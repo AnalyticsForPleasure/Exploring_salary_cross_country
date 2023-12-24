@@ -71,6 +71,11 @@ def salary_for_phd_position_separated_by_men_and_women(df):
     result_avg_salary_male['Salary'] = result_avg_salary_male['Salary'].apply(lambda x: int(x))
     print('*')
 
+
+    # TODO: the second chart is wrong - need to fix it
+    result_table_style = pd.concat([result_avg_salary_female, result_avg_salary_male], axis=1)
+    #result_table_style['diff_precentage'] = result_table_style.iloc[:,2] -
+
     print('*')
     return result_avg_salary_female, result_avg_salary_male
 
@@ -81,7 +86,7 @@ def salary_for_phd_position_separated_by_men_and_women(df):
 # return value:
 # ***************************************************************************************************************
 def multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result_avg_salary_male, font_prop):
-    fig, ax = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(16, 9))
+    fig, ax = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(16, 6))
     data_per_gender = {'female': result_avg_salary_female, 'male': result_avg_salary_male}
     colors = {'female': 'lightpink', 'male': 'lightblue'}
 
@@ -98,7 +103,9 @@ def multi_bar_subplots_chart_Avg_salary_for_PhD(result_avg_salary_female, result
         ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9)
 
         add_numbers_for_each_bar_chart(gender_phd_count, ax, idx_gender=idx)
-        plt.savefig('Gender Comparison by Salary.jpg', dpi=250, bbox_inches='tight')
+
+    plt.savefig('gender_compression_by_salary.jpg', dpi=250, bbox_inches='tight')
+
     plt.show()
 
 

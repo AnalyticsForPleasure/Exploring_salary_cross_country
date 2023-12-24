@@ -16,7 +16,7 @@ def format_with_commas(value, pos):
 # return value:
 # ****************************************************************************************************************
 def creating_a_distributed_dot_plot_for_each_department(df_raw, font_prop):
-    # Mean and Median city mileage by make
+    # Mean and Median
     df = df_raw[['Salary', 'Job Title']].groupby('Job Title').apply(lambda x: x.mean())
     df.sort_values('Salary', ascending=False, inplace=True)
     df.reset_index(inplace=True)
@@ -60,7 +60,7 @@ def creating_a_distributed_dot_plot_for_each_department(df_raw, font_prop):
     plt.gca().spines["left"].set_visible(False)
     plt.grid(axis='both', alpha=.4, linewidth=.1)
 
-    plt.savefig('Salary distribution across HR positions.jpg', dpi=250, bbox_inches='tight')
+    plt.savefig('Salary_distribution_across_positions.jpg', dpi=250, bbox_inches='tight')
     plt.show()
 
 

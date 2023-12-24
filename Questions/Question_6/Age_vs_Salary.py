@@ -66,6 +66,7 @@ def creating_a_scatter_avg_chart(df, font_prop):
     ax.xaxis.set_major_formatter(FuncFormatter(format_ticks_with_commas))
     plt.axvline(x=mean_salary_ds, linewidth=0.5)  # color=gray,
     plt.axhline(y=relevant_data['Age'].mean(), linewidth=0.5)  # color=GRAY1,
+
     ax.annotate('My avg Salary',
                 xy=(mean_salary_ds, 30))
     ax.annotate('My avg Age',

@@ -79,7 +79,7 @@ def multi_bar_subplots_chart_for_PhD(res_female, res_male, font_prop):
         ax[idx].bar(break_into_separate_word(gender_labels), gender_phd_count, color=colors[gender], width=0.9)
 
         add_numbers_for_each_bar_chart(gender_phd_count, ax, idx_gender=idx)
-        plt.savefig('Gender Comparison.jpg', dpi=250, bbox_inches='tight')
+        plt.savefig('gender_comparison.jpg', dpi=250, bbox_inches='tight')
     plt.show()
 
 
