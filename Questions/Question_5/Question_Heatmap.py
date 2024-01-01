@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import dataframe_image as dfi
 
 # **************************************************************************************************************
@@ -134,7 +135,18 @@ def creating_the_heatmap(matrix,matrix_sales, matrix_operations ,font_prop):
     ax[1].text(8.75, -0.75, 'Exploring the Relationship Between Education Levels and Job Titles', fontname=font_prop['fontname'], horizontalalignment='right',
             color =font_prop['color'],fontsize =font_prop['fontsize'])
 
-    plt.savefig('heatmap_chart.jpg', dpi=250, bbox_inches='tight')
+    # Adding rectangle for inforamtion inside the chart
+    ax[0].annotate('Highest values', xy=(1.1, 3), fontsize=10, color='black' , weight='bold')#, horizontala
+    ax[0].add_patch(
+        patches.Rectangle(
+            (1, 3),
+            2.0,
+            1.0,
+            edgecolor='Black',
+            fill=False,
+            lw=2
+        ))
+    plt.savefig('3_heatmaps_chart.jpg', dpi=250, bbox_inches='tight')
 
 
 
