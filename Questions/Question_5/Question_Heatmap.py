@@ -135,17 +135,28 @@ def creating_the_heatmap(matrix,matrix_sales, matrix_operations ,font_prop):
     ax[1].text(8.75, -0.75, 'Exploring the Relationship Between Education Levels and Job Titles', fontname=font_prop['fontname'], horizontalalignment='right',
             color =font_prop['color'],fontsize =font_prop['fontsize'])
 
-    # Adding rectangle for inforamtion inside the chart
-    ax[0].annotate('Highest values', xy=(1.1, 3), fontsize=10, color='black' , weight='bold')#, horizontala
-    ax[0].add_patch(
-        patches.Rectangle(
-            (1, 3),
-            2.0,
-            1.0,
+    # Adding rectangle for information inside the chart
+    ax[0].annotate('Highest values', xy=(1.1, 3), fontsize=9, color='black' , weight='bold')#, horizontala
+    ax[0].add_patch(patches.Rectangle(
+            (1, 3), #offset
+            2.0, # columns
+            1.0, # rows
             edgecolor='Black',
             fill=False,
             lw=2
         ))
+
+    # Adding rectangle for information inside the chart
+    ax[2].annotate('Highest values', xy=(2.35, 2), fontsize=9, color='black' , weight='bold')#, horizontala
+    ax[2].add_patch(patches.Rectangle(
+            (3, 2), #offset (x,y)
+            1.0, # columns - x
+            1.0, # rows - y
+            edgecolor='Black',
+            fill=False,
+            lw=2
+        ))
+
     plt.savefig('3_heatmaps_chart.jpg', dpi=250, bbox_inches='tight')
 
 
