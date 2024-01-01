@@ -65,47 +65,20 @@ def preparing_the_matrix_before_illustration(df):
 def creating_the_heatmap(matrix, matrix_sales, matrix_operations, font_prop):
     fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(20, 6))
 
-    ax[0] = sns.heatmap(matrix,
-                        vmin=0,
-                        vmax=matrix.to_numpy().max(),
-                        center=0,
-                        cmap="Greens",
-                        # cmap=sns.diverging_palette(20, 220, n=200),
-                        square=True,
-                        ax=ax[0],
-                        cbar=False,  # color bar scale
-                        linewidth=3.5,
-                        annot=True,
-                        fmt='.3g'
-                        )
-
-    ax[1] = sns.heatmap(matrix_sales,
-                        vmin=0,
-                        vmax=matrix_sales.to_numpy().max(),
-                        cmap="Blues",
-                        center=0,
-                        # cmap=sns.diverging_palette(20, 220, n=200),
-                        square=True,
-                        ax=ax[1],
-                        cbar=False,
-                        linewidth=3.5,
-                        annot=True,
-                        fmt='.3g'
-                        )
-
-    ax[2] = sns.heatmap(matrix_operations,
-                        vmin=0,
-                        vmax=matrix_operations.to_numpy().max(),
-                        cmap="Purples",
-                        center=0,
-                        # cmap=sns.diverging_palette(20, 220, n=200),
-                        square=True,
-                        ax=ax[2],
-                        cbar=False,
-                        linewidth=3.5,
-                        annot=True,
-                        fmt='.3g'
-                        )
+    for idx, color in enumerate(["Greens", "Blues", "Purples"]):
+        ax[idx] = sns.heatmap(matrix,
+                              vmin=0,
+                              vmax=matrix.to_numpy().max(),
+                              center=0,
+                              cmap=color,
+                              # cmap=sns.diverging_palette(20, 220, n=200),
+                              square=True,
+                              ax=ax[idx],
+                              cbar=False,  # color bar scale
+                              linewidth=3.5,
+                              annot=True,
+                              fmt='.3g'
+                              )
 
     ax[0].set_title('R&D Positions', fontsize=16, fontname=font_prop['fontname'])
     ax[1].set_title('Sales Positions ', fontsize=16, fontname=font_prop['fontname'])
