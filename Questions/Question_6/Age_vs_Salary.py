@@ -20,7 +20,7 @@ def my_funct(my_tup, mean_age, mean_salary):
     elif (age < mean_age) & (salary < mean_salary):
         return "lightgreen"
 
-    return "blue"
+    return "navy"
 
 
 # Define a function to format tick labels with commas
@@ -38,8 +38,9 @@ def creating_a_scatter_avg_chart(df, font_prop):
     df['Years of Experience'] = df['Years of Experience'].apply(lambda x: int(x))
     # print(df['Job Title'].value_counts())
 
-    job_type = 'Data Scientist'
-    #job_type ='Sales Associate'
+    #job_type = 'Data Scientist'
+    job_type ='Sales Associate'
+    #job_type ='Software Engineer'
     #job_type = 'Project Engineer'
     relevant_data = df.loc[(df['Years of Experience'] <= 15) & (df['Job Title'] == job_type)]
 
@@ -48,8 +49,8 @@ def creating_a_scatter_avg_chart(df, font_prop):
     max_salary = x_values.max()
 
     y_values = relevant_data['Age']
-    min_Age = y_values.min()
-    max_Age = y_values.max()
+
+    sns.set_style("dark")
 
     # create new figure
     fig, ax = plt.subplots(figsize=(8.2, 5.4),  # width, height in inches
@@ -65,22 +66,23 @@ def creating_a_scatter_avg_chart(df, font_prop):
     plt.axvline(x=mean_salary_ds, linewidth=2.5, linestyle="--",color = "Gray")
     plt.axhline(y=relevant_data['Age'].mean(), linewidth=2.5,linestyle="--",color = "Gray")  # color=GRAY1,
 
-    ax.annotate(f'Avg Salary - {job_type}',
-                xy=(mean_salary_ds, 30))
-    ax.annotate(f'Avg Age - {job_type}',
-                xy=(100000, mean_age_ds))
+    small_shifting_salary = mean_salary_ds*0.02
+    small_shifting_age = mean_age_ds * 0.02
+    ax.annotate(f'   Avg Salary \n{job_type}', xy=(mean_salary_ds-small_shifting_salary, 35), rotation= 90)
+    ax.annotate(f'   Avg Age \n{job_type}',xy=(50000, mean_age_ds+small_shifting_age))
 
     ax.scatter([mean_salary_ds], [mean_age_ds],
                marker='o',
                linestyle='dashed',
-               s=250,
+               s=350,
                facecolor='none',
-               edgecolor='blue')
+               edgecolor='Black')
 
     ax.set_title(f'Salary distribution within the role of a {job_type}',
                  fontsize=font_prop['fontsize'],
                  fontname=font_prop['fontname'],
-                 color='Black')
+                 color='gray')
+
 
     # invert y axis
     ax.invert_yaxis()
@@ -90,6 +92,8 @@ def creating_a_scatter_avg_chart(df, font_prop):
     # # remove chart border
     ax.spines['right'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
+
+    plt.savefig('scatter_avg_chart_Sales_Associate.jpg', dpi=250, bbox_inches='tight')
     plt.show()
 
 
@@ -97,13 +101,6 @@ if __name__ == '__main__':
     pd.set_option('display.max_rows', 500)  # To see all rows
     pd.set_option('display.max_columns', 500)  # To see all columns
     pd.set_option('display.width', 1000)
-
-    # configure plot font family to Arial
-    # plt.rcParams['font.family'] = 'Arial'
-    # # configure mathtext bold and italic font family to Arial
-    # plt.rcParams['mathtext.fontset'] = 'custom'
-    # plt.rcParams['mathtext.bf'] = 'Arial:bold'
-    # plt.rcParams['mathtext.it'] = 'Arial:italic'
 
     df = pd.read_csv('../../data/salary_by_job_country/Salary.csv')
 
