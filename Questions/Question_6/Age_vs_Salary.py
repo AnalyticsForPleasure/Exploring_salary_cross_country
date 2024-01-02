@@ -14,11 +14,11 @@ from matplotlib.patches import Arrow, FancyArrowPatch
 def my_funct(my_tup, mean_age, mean_salary):
     age, salary = my_tup
     if (age > mean_age) & (salary > mean_salary):
-        return "pink"
+        return "lightblue"
     elif (age > mean_age) & (salary < mean_salary):
         return "green"
     elif (age < mean_age) & (salary < mean_salary):
-        return "red"
+        return "lightgreen"
 
     return "blue"
 
@@ -26,7 +26,6 @@ def my_funct(my_tup, mean_age, mean_salary):
 # Define a function to format tick labels with commas
 def format_ticks_with_commas(value, _):
     return f"{value:,.0f}$"
-
 
 # **************************************************************************************************************
 # Function  name: creating_a_scatter_avg_chart
@@ -39,9 +38,9 @@ def creating_a_scatter_avg_chart(df, font_prop):
     df['Years of Experience'] = df['Years of Experience'].apply(lambda x: int(x))
     # print(df['Job Title'].value_counts())
 
-    # job_type = 'Data Scientist'
-
-    job_type = 'Project Engineer'
+    job_type = 'Data Scientist'
+    #job_type ='Sales Associate'
+    #job_type = 'Project Engineer'
     relevant_data = df.loc[(df['Years of Experience'] <= 15) & (df['Job Title'] == job_type)]
 
     x_values = relevant_data['Salary']
@@ -57,19 +56,18 @@ def creating_a_scatter_avg_chart(df, font_prop):
                            dpi=110)  # resolution of the figure
     mean_salary_ds = relevant_data['Salary'].mean()
     mean_age_ds = relevant_data['Age'].mean()
-    relevant_data['color'] = relevant_data.loc[:, ['Age', 'Salary']].apply(
-        lambda pair: my_funct(pair, mean_age_ds, mean_salary_ds), axis=1)
+    relevant_data['color'] = relevant_data.loc[:, ['Age', 'Salary']].apply(lambda pair: my_funct(pair, mean_age_ds, mean_salary_ds), axis=1)
     ax.scatter(x_values, y_values, color=relevant_data['color'], s=80)
     ax.set_xlabel("Salary")
     ax.set_ylabel("Age")
     # Apply the formatter to the x-axis
     ax.xaxis.set_major_formatter(FuncFormatter(format_ticks_with_commas))
-    plt.axvline(x=mean_salary_ds, linewidth=0.5)  # color=gray,
-    plt.axhline(y=relevant_data['Age'].mean(), linewidth=0.5)  # color=GRAY1,
+    plt.axvline(x=mean_salary_ds, linewidth=2.5, linestyle="--",color = "Gray")
+    plt.axhline(y=relevant_data['Age'].mean(), linewidth=2.5,linestyle="--",color = "Gray")  # color=GRAY1,
 
-    ax.annotate('My avg Salary',
+    ax.annotate(f'Avg Salary - {job_type}',
                 xy=(mean_salary_ds, 30))
-    ax.annotate('My avg Age',
+    ax.annotate(f'Avg Age - {job_type}',
                 xy=(100000, mean_age_ds))
 
     ax.scatter([mean_salary_ds], [mean_age_ds],
